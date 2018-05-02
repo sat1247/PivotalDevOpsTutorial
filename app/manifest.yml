@@ -3,7 +3,7 @@ applications:
 - name: devops-sample-app
   memory: 256M
   instances: 1
-  host: devops-sample-app
+#  host: devops-sample-app
   command: node app.js
   path: .
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git

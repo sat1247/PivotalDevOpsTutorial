@@ -51,7 +51,7 @@ jobs:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
   - put: PCF-Stage
     params:
-      manifest: app-manifest-output/manifest.yml
+      manifest: PivotalDevOps/Tutorial/app/manifest.yml
       path: PivotalDevOpsTutorial/app
 
 - name: load-tests
