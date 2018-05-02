@@ -93,7 +93,7 @@ jobs:
     file: ci/tasks/app-manifest-prep.yml
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-  - put: PCF-Stage
+  - put: PCF-Prod
     params:
       manifest: app-manifest-output/manifest.yml
       path: PivotalDevOpsTutorial/app
