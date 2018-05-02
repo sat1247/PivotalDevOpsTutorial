@@ -72,8 +72,8 @@ jobs:
   - task: run-load-tests
     file: ci/tasks/load-tests.yml
     params:
-      PCF_APP_SUFFIX: {{pcf-app-suffix}}
-      PCF_APP_DOMAIN: {{pcf-app-domain}}
+      PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
+      PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
 
 - name: push-to-prod
   serial: true
