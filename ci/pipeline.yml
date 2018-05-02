@@ -45,10 +45,6 @@ jobs:
       PCF_USER: {{stage-deploy-username}}
       PCF_PWD: {{stage-deploy-password}}
       PCF_SPACE: {{pcf-stage-space}}
-  - task: prepare-app-manifest
-    file: ci/tasks/app-manifest-prep.yml
-    params:
-      PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
   - put: PCF-Stage
     params:
       manifest: PivotalDevOpsTutorial/app/manifest.yml
@@ -70,7 +66,7 @@ jobs:
       PCF_PWD: {{stage-deploy-password}}
       PCF_SPACE: {{pcf-stage-space}}
   - task: run-load-tests
-    file: ci/tasks/load-tests.yml
+    file: PivotalDevOpsTutorial/ci/tasks/load-tests.yml
     params:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
@@ -89,12 +85,7 @@ jobs:
       PCF_USER: {{prod-deploy-username}}
       PCF_PWD: {{prod-deploy-password}}
       PCF_SPACE: {{pcf-prod-space}}
-  - task: prepare-app-manifest
-    file: ci/tasks/app-manifest-prep.yml
-    params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
   - put: PCF-Prod
     params:
       manifest: PivotalDevOpsTutorial/manifest.yml
       path: PivotalDevOpsTutorial/app
-

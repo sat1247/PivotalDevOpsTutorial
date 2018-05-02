@@ -9,7 +9,7 @@ image_resource:
 
 inputs:
 - name: PivotalDevOpsTutorial
-- name: current-app-info
+#- name: current-app-info
 
 run:
   path: ./PivotalDevOpsTutorial/ci/tasks/load-tests
