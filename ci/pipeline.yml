@@ -87,5 +87,5 @@ jobs:
       PCF_SPACE: {{pcf-prod-space}}
   - put: PCF-Prod
     params:
-      manifest: PivotalDevOpsTutorial/manifest.yml
+      manifest: PivotalDevOpsTutorial/app/manifest.yml
       path: PivotalDevOpsTutorial/app
