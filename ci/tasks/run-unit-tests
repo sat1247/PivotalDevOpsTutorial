@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -xe
+
+cd app
+npm install
+mocha tests --recursive

@@ -1,0 +1,110 @@
+groups:
+- name: main
+  jobs:
+  - unit-tests
+  - deploy-app
+  - load-tests
+  - promote-new-version
+
+resources:
+- name: PivotalDevOpsTutorial
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/akirasoft/PivotalDevOpsTutorial.git
+- name: PCF
+  type: cf
+  source:
+    api: {{pcf-api}}
+    organization: {{pcf-organization}}
+    username: {{deploy-username}}
+    password: {{deploy-password}}
+    skip_cert_check: true
+    space: {{pcf-space}}
+
+jobs:
+- name: unit-tests
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+    trigger: true
+  - task: run-unit-tests
+    file: ci/tasks/unit-tests.yml
+
+- name: deploy-app
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - unit-tests
+  - task: get-current-app-color
+    file: ci/tasks/current-app-get-info.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-app-suffix}}
+      PCF_API: {{pcf-api}}
+      PCF_ORG: {{pcf-organization}}
+      PCF_USER: {{deploy-username}}
+      PCF_PWD: {{deploy-password}}
+      PCF_SPACE: {{pcf-space}}
+  - task: prepare-app-manifest
+    file: ci/tasks/app-manifest-prep.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-app-suffix}}
+  - put: PCF
+    params:
+      manifest: app-manifest-output/manifest.yml
+      path: PivotalDevOpsTutorial/app
+
+- name: load-tests
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - deploy-app
+  - task: get-current-app-color
+    file: ci/tasks/current-app-get-info.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-app-suffix}}
+      PCF_API: {{pcf-api}}
+      PCF_ORG: {{pcf-organization}}
+      PCF_USER: {{deploy-username}}
+      PCF_PWD: {{deploy-password}}
+      PCF_SPACE: {{pcf-space}}
+  - task: run-load-tests
+    file: ci/tasks/load-tests.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-app-suffix}}
+      PCF_APP_DOMAIN: {{pcf-app-domain}}
+
+- name: promote-new-version
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - load-tests
+  - task: get-current-app-color
+    file: ci/tasks/current-app-get-info.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-app-suffix}}
+      PCF_API: {{pcf-api}}
+      PCF_ORG: {{pcf-organization}}
+      PCF_USER: {{deploy-username}}
+      PCF_PWD: {{deploy-password}}
+      PCF_SPACE: {{pcf-space}}
+  - task: switch-app-routes
+    file: ci/tasks/update-routes.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-app-suffix}}
+      PCF_APP_DOMAIN: {{pcf-app-domain}}
+      PCF_API: {{pcf-api}}
+      PCF_ORG: {{pcf-organization}}
+      PCF_USER: {{deploy-username}}
+      PCF_PWD: {{deploy-password}}
+      PCF_SPACE: {{pcf-space}}
