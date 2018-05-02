@@ -20,6 +20,7 @@ resources:
     password: {{stage-deploy-password}}
     skip_cert_check: true
     space: {{pcf-stage-space}}
+    current_app_name: {{pcf-stage-app-suffix}}
 - name: PCF-Prod
   type: cf
   source:
@@ -29,6 +30,7 @@ resources:
     password: {{prod-deploy-password}}
     skip_cert_check: true
     space: {{pcf-prod-space}}
+    current_app_name: {{pcf-prod-app-suffix}}
 
 
 jobs:
