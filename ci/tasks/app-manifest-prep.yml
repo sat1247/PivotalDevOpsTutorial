@@ -15,4 +15,4 @@ outputs:
 - name: app-manifest-output
 
 run:
-  path: ci/tasks/app-manifest-prep
+  path: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep
