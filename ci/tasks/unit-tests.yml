@@ -11,4 +11,4 @@ inputs:
 - name: PivotalDevOpsTutorial
 
 run:
-  path: PivotalDevOpsTutorial/ci/tasks/run-unit-tests
+  path: ./PivotalDevOpsTutorial/ci/tasks/run-unit-tests
