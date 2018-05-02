@@ -1,6 +1,6 @@
 ---
 applications:
-- name: devops-sample-app
+- name: devops-sample-app-prod
   memory: 256M
   instances: 1
 #  host: devops-sample-app

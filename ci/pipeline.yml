@@ -48,7 +48,7 @@ jobs:
       PCF_SPACE: {{pcf-stage-space}}
   - put: PCF-Stage
     params:
-      manifest: PivotalDevOpsTutorial/app/manifest.yml
+      manifest: PivotalDevOpsTutorial/manifests/manifest.yml
       path: PivotalDevOpsTutorial/app
 
 - name: load-tests
@@ -88,5 +88,5 @@ jobs:
       PCF_SPACE: {{pcf-prod-space}}
   - put: PCF-Prod
     params:
-      manifest: PivotalDevOpsTutorial/app/manifest-prod.yml
+      manifest: PivotalDevOpsTutorial/manifests/manifest-prod.yml
       path: PivotalDevOpsTutorial/app
