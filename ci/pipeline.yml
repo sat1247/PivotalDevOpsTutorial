@@ -32,7 +32,6 @@ resources:
     space: {{pcf-prod-space}}
     current_app_name: {{pcf-prod-app-suffix}}
 
-
 jobs:
 - name: deploy-app
   serial: true
@@ -89,5 +88,5 @@ jobs:
       PCF_SPACE: {{pcf-prod-space}}
   - put: PCF-Prod
     params:
-      manifest: PivotalDevOpsTutorial/app/manifest.yml
+      manifest: PivotalDevOpsTutorial/app/manifest-prod.yml
       path: PivotalDevOpsTutorial/app
