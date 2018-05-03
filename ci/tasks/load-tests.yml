@@ -4,8 +4,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-#    repository: djudorange/node-gulp-mocha
-    repository: rplan/artillery
+    repository: djudorange/node-gulp-mocha
+#    repository: rplan/artillery
     tag: "latest"
 
 inputs:
