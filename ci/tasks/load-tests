@@ -11,5 +11,5 @@ export NEXT_APP_URL=http://$PCF_APP_SUFFIX.$PCF_APP_DOMAIN/
 
 echo "Running artillery load tests..."
 
-##rtillery quick --duration 10 --rate 10 $NEXT_APP_URL
-artillery run -t $NEXT_APP_URL ./PivotalDevOpsTutorial/ci/tasks/artillery-script.yml
+artillery quick --duration 10 --rate 10 $NEXT_APP_URL
+#artillery run -t $NEXT_APP_URL ./PivotalDevOpsTutorial/ci/tasks/artillery-script.yml
