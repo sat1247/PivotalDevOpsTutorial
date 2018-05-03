@@ -1,0 +1,24 @@
+config:
+  target: 'http://someserver.com'
+  phases:
+    - duration: 60
+      arrivalRate: 30
+  defaults:
+scenarios:
+  - flow:
+    - get:
+        url: "/"
+        headers: 
+          x-Dynatrace: 'NA=Test.Homepage;'
+    - get:
+        url: "/version"
+        headers: 
+          x-Dynatrace: 'NA=Test.Version;'
+    - get:
+        url: "/api/echo?text=This is from a testing script"
+        headers: 
+          x-Dynatrace: 'NA=Test.Echo;'
+    - get:
+        url: '/api/invoke?url=http://www.dynatrace.com'
+        headers: 
+          x-Dynatrace: 'NA=Test.Invoke;'
