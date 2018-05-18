@@ -71,6 +71,14 @@ jobs:
     params:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
+    on_success:
+#     put: ufo
+      task: ufo-task
+      file: PivotalDevOpsTutorial/ci/tasks/ufo-task.yml
+      params:
+        UFO_IP: {{ufo-ip}}
+        UFO_ROW: top
+        UFO_COLOR: 00ff00
 
 - name: push-to-prod
   serial: true
@@ -90,3 +98,10 @@ jobs:
     params:
       manifest: PivotalDevOpsTutorial/app/manifest-prod.yml
       path: PivotalDevOpsTutorial/app
+    on_success:
+      task: ufo-task
+      file: PivotalDevOpsTutorial/ci/tasks/ufo-task.yml
+      params:
+        UFO_IP: {{ufo-ip}}
+        UFO_ROW: bottom
+        UFO_COLOR: 00ff00
