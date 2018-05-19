@@ -5,12 +5,6 @@ groups:
   - load-tests
   - push-to-prod
 
-resource_types:
-- name: ufo
-  type: docker-image
-  source:
-    repository: mvilliger/dynatrace-ufo-resource
-
 resources:
 - name: PivotalDevOpsTutorial
   type: git
@@ -37,12 +31,6 @@ resources:
     skip_cert_check: true
     space: {{pcf-prod-space}}
     current_app_name: {{pcf-prod-app-suffix}}
-- name: ufo
-  type: dynatrace-ufo-resource
-  source:
-    UFO_IP: {{ufo-ip}}
-
-
 
 jobs:
 - name: deploy-app
@@ -84,8 +72,11 @@ jobs:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
     on_success:
-      put: ufo
+#     put: ufo
+      task: ufo-task
+      file: PivotalDevOpsTutorial/ci/tasks/ufo-task.yml
       params:
+        UFO_IP: {{ufo-ip}}
         UFO_ROW: top
         UFO_COLOR: 00ff00
 
@@ -108,7 +99,9 @@ jobs:
       manifest: PivotalDevOpsTutorial/app/manifest-prod.yml
       path: PivotalDevOpsTutorial/app
     on_success:
-      put: ufo
+      task: ufo-task
+      file: PivotalDevOpsTutorial/ci/tasks/ufo-task.yml
       params:
+        UFO_IP: {{ufo-ip}}
         UFO_ROW: bottom
         UFO_COLOR: 00ff00
