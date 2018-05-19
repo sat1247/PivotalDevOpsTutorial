@@ -88,6 +88,11 @@ jobs:
       params:
         UFO_ROW: top
         UFO_COLOR: 00ff00
+    on_failure:
+      put: ufo
+      params:
+        UFO_ROW: top
+        UFO_COLOR: ff0000
 
 - name: push-to-prod
   serial: true
@@ -112,3 +117,9 @@ jobs:
       params:
         UFO_ROW: bottom
         UFO_COLOR: 00ff00
+    on_failure:
+      put: ufo
+      params:
+        UFO_ROW: top
+        UFO_COLOR: ff0000
+
