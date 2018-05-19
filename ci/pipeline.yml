@@ -6,7 +6,7 @@ groups:
   - push-to-prod
 
 resource_types:
-- name: ufo
+- name: dynatrace-ufo-resource
   type: docker-image
   source:
     repository: mvilliger/dynatrace-ufo-resource
