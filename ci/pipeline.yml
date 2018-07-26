@@ -65,7 +65,7 @@ jobs:
       PCF_USER: {{stage-deploy-username}}
       PCF_PWD: {{stage-deploy-password}}
       PCF_SPACE: {{pcf-stage-space}}
-  - put: Dynatrace
+  - put: dynatrace
     params:
       monspecserviceenvironment: SampleJSonService/Staging
       pipelinetaskname: ConcourseDeploy
@@ -134,4 +134,3 @@ jobs:
       params:
         UFO_ROW: top
         UFO_COLOR: ff0000
-
