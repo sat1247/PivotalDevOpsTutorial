@@ -102,7 +102,7 @@ function sleep(time) {
 	var stop = new Date().getTime();
 	var result = 0;
     while(new Date().getTime() < stop + time) {
-        result += Math.random() * Math.random();;
+        result += Math.random() * Math.random();
     }
 }
 
