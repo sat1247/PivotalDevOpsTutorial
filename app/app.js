@@ -99,10 +99,10 @@ var log = function(severity, entry) {
 // ======================================================================
 function sleep(time) {
 	if(time < minSleep) time = minSleep;
-	var stop = new Date().getTime();
-	var result = 0;
-    while(new Date().getTime() < stop + time) {
-        result += Math.random() * Math.random();
+		var stop = new Date().getTime();
+		var result = 0;
+    	while(new Date().getTime() < stop + time) {
+        	result += Math.random() * Math.random();
     }
 }
 
