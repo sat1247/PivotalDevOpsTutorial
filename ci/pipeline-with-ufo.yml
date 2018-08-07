@@ -41,10 +41,10 @@ resources:
     skip_cert_check: true
     space: {{pcf-prod-space}}
     current_app_name: {{pcf-prod-app-suffix}}
-    #- name: ufo
-    #  type: dynatrace-ufo-resource
-    #  source:
-    #    UFO_IP: {{ufo-ip}}
+- name: ufo
+  type: dynatrace-ufo-resource
+  source:
+    UFO_IP: {{ufo-ip}}
 - name: dynatrace
   type: dynatrace-resource
   source:
@@ -96,15 +96,15 @@ jobs:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
     on_success:
-            #      put: ufo
-            #      params:
-            #        UFO_ROW: top
-            #        UFO_COLOR: 00ff00
+      put: ufo
+      params:
+        UFO_ROW: top
+        UFO_COLOR: 00ff00
     on_failure:
-            #      put: ufo
-            #      params:
-              #        UFO_ROW: top
-              #        UFO_COLOR: ff0000
+      put: ufo
+      params:
+        UFO_ROW: top
+        UFO_COLOR: ff0000
 
 - name: push-to-prod
   serial: true
@@ -125,12 +125,12 @@ jobs:
       manifest: PivotalDevOpsTutorial/app/manifest-prod.yml
       path: PivotalDevOpsTutorial/app
     on_success:
-            #      put: ufo
-            #      params:
-            #        UFO_ROW: bottom
-            #        UFO_COLOR: 00ff00
+      put: ufo
+      params:
+        UFO_ROW: bottom
+        UFO_COLOR: 00ff00
     on_failure:
-            #      put: ufo
-            #      params:
-            #        UFO_ROW: top
-            #        UFO_COLOR: ff0000
+      put: ufo
+      params:
+        UFO_ROW: top
+        UFO_COLOR: ff0000
