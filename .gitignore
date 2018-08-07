@@ -1,0 +1,5 @@
+dtconfig.json
+.DS_Store
+ci/credentials.json
+tmpfiles/*
+.vscode*/*
