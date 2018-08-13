@@ -9,4 +9,4 @@ applications:
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
   env:
     DT_CUSTOM_PROP: DEPLOYMENT_GROUP_NAME=Production
-
+    BUILD_NUMBER: 4
