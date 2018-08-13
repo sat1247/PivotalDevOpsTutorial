@@ -11,7 +11,7 @@
                     {
                         "context": "CONTEXTLESS",
                         "key": "DeploymentGroup", 
-                        "value": "STAGING"
+                        "value": "Staging"
                     }                
                 ]
             },
@@ -20,7 +20,7 @@
                     {
                         "context": "CONTEXTLESS",
                         "key": "DeploymentGroup", 
-                        "value": "PRODUCTION"
+                        "value": "Production"
                     }                
                 ]                
             }

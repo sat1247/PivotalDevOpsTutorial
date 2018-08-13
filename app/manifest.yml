@@ -8,6 +8,6 @@ applications:
   path: .
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
   env:
-    DT_CUSTOM_PROP: DEPLOYMENT_GROUP_NAME=STAGING
+    DT_CUSTOM_PROP: DEPLOYMENT_GROUP_NAME=Staging
     BUILD_NUMBER: 4
 
