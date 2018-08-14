@@ -154,8 +154,8 @@ jobs:
   - task: run-load-tests
     file: PivotalDevOpsTutorial/ci/tasks/load-tests.yml
     params:
-      PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
-      PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
     on_success:
             #      put: ufo
             #      params:
