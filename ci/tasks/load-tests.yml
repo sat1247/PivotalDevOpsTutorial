@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: node:8-alpine
+    repository: mvilliger/artillery-docker
 #    repository: rplan/artillery
     tag: "latest"
 
