@@ -4,6 +4,7 @@ groups:
   - deploy-app
   - load-tests
   - push-to-prod
+  - load-tests-prod
 
 resource_types:
 - name: dynatrace-ufo-resource
@@ -134,3 +135,34 @@ jobs:
             #      params:
             #        UFO_ROW: top
             #        UFO_COLOR: ff0000
+
+- name: load-tests
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - push-to-prod
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_API: {{pcf-prod-api}}
+      PCF_ORG: {{pcf-prod-organization}}
+      PCF_USER: {{prod-deploy-username}}
+      PCF_PWD: {{prod-deploy-password}}
+      PCF_SPACE: {{pcf-prod-space}}
+  - task: run-load-tests
+    file: PivotalDevOpsTutorial/ci/tasks/load-tests.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
+      PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
+    on_success:
+            #      put: ufo
+            #      params:
+            #        UFO_ROW: top
+            #        UFO_COLOR: 00ff00
+    on_failure:
+            #      put: ufo
+            #      params:
+              #        UFO_ROW: top
+              #        UFO_COLOR: ff0000
