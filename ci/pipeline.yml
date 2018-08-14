@@ -136,7 +136,7 @@ jobs:
             #        UFO_ROW: top
             #        UFO_COLOR: ff0000
 
-- name: load-tests
+- name: load-tests-prod
   serial: true
   public: true
   plan:
