@@ -9,7 +9,7 @@ npm install -g artillery
 #export NEXT_APP_COLOR=$(cat ./current-app-info/next-app.txt)
 export NEXT_APP_URL=http://$PCF_APP_SUFFIX.$PCF_APP_DOMAIN/
 
-echo "Running artillery load tests..."
+echo "Running artillery load tests against $NEXT_APP_URL..."
 
 #artillery quick --duration 10 --rate 10 $NEXT_APP_URL
 artillery run -t $NEXT_APP_URL ./PivotalDevOpsTutorial/ci/tasks/artillery-script.yml
