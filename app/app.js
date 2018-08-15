@@ -49,8 +49,8 @@ var init = function(newBuildNumber) {
 			break;
 		case 4: 
 			if(inProduction) {
-				minSleep = minSleep * 2;
-				failInvokeRequestPercentage = 10;
+				minSleep = minSleep * 20;
+				failInvokeRequestPercentage = 90;
 			}
 			break;
 		default:
