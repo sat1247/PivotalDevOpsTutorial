@@ -2,10 +2,15 @@
 
 set -e
 
-echo "configuring Dynatrace CLI with $apitoken and $tenanthost"
+# troubleshooting permissions shenanigans
+whoami
+ls -la ./PivotalDevOpsTutorial/ci/smplmonspec.json
+ls -la ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json
 
-python /dtcli/dtcli.py config apitoken $apitoken tenanthost $tenanthost
+#echo "configuring Dynatrace CLI with $apitoken and $tenanthost"
 
-echo "initializing Dynatrace Custom Device to store timeseries performance data"
+#python /dtcli/dtcli.py config apitoken $apitoken tenanthost $tenanthost
 
-python /dtcli/dtcli.py monspec pushdeploy ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json
+#echo "initializing Dynatrace Custom Device to store timeseries performance data"
+
+#python /dtcli/dtcli.py monspec pushdeploy ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json
