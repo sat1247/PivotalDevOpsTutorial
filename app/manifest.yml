@@ -9,5 +9,5 @@ applications:
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
   env:
     DT_CUSTOM_PROP: DEPLOYMENT_GROUP=Staging
-    BUILD_NUMBER: 2
+    BUILD_NUMBER: 1
 
