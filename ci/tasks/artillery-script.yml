@@ -2,7 +2,7 @@ config:
   target: 'http://someserver.com'
   phases:
     - duration: 60
-      arrivalRate: 30
+      arrivalRate: 60
   defaults:
 scenarios:
   - flow:

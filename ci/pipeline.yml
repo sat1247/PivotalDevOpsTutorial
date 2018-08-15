@@ -1,4 +1,8 @@
 groups:
+- name: init
+  jobs:
+  - init-dynatrace
+
 - name: main
   jobs:
   - deploy-app
@@ -53,6 +57,16 @@ resources:
     tenanthost: {{tenanthost}}
     
 jobs:
+- name: init-dynatrace
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+  - task: init-dynatrace-task
+    file: PivotalDevOpsTutorial/ci/tasks/init-dynatrace-task.yml
+    params: 
+      apitoken: {{apitoken}}
+      tenanthost: {{tenanthost}}
+      
 - name: deploy-app
   serial: true
   public: true
