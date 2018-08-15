@@ -8,4 +8,4 @@ python /dtcli/dtcli.py config apitoken $apitoken tenanthost $tenanthost
 
 echo "initializing Dynatrace Custom Device to store timeseries performance data"
 
-python /dtcli/dtcli.py monspec pushdeploy ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json
+python /dtcli/dtcli.py monspec init ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json
