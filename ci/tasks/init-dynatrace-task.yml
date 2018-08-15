@@ -12,4 +12,4 @@ inputs:
 #- name: current-app-info
 
 run:
-  path: ./PivotalDevOpsTutorial/ci/tasks/init-dynatrace-task
+  path: /bin/sh ./PivotalDevOpsTutorial/ci/tasks/init-dynatrace-task
