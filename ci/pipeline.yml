@@ -98,6 +98,8 @@ jobs:
   serial: true
   public: true
   plan:
+  - get: 10m
+    trigger: true    
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
@@ -135,6 +137,8 @@ jobs:
   serial: true
   public: true
   plan:
+  - get: 10m
+    trigger: true    
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
@@ -170,6 +174,8 @@ jobs:
   serial: true
   public: true
   plan:
+  - get: 10m
+    trigger: true    
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
