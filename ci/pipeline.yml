@@ -1,14 +1,13 @@
 groups:
-- name: init
-  jobs:
-  - init-dynatrace
-
 - name: main
   jobs:
   - deploy-app
   - load-tests
   - push-to-prod
   - load-tests-prod
+- name: init
+  jobs:
+  - init-dynatrace
 
 resource_types:
 - name: dynatrace-ufo-resource
@@ -74,7 +73,7 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: 5m
+  - get: 10m
     trigger: true    
   - get: PivotalDevOpsTutorial
     trigger: true
