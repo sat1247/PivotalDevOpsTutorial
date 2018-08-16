@@ -5,6 +5,7 @@ groups:
   - load-tests
   - push-to-prod
   - load-tests-prod
+  - promote-new-version
 - name: init
   jobs:
   - init-dynatrace
