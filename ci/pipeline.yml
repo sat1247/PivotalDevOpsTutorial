@@ -20,9 +20,9 @@ resource_types:
     repository: mvilliger/dynatrace-resource
 
 resources:
-- name: 10m
-  type: time
-  source: {interval: 10m}  
+#- name: 10m
+#  type: time
+#  source: {interval: 10m}  
 - name: PivotalDevOpsTutorial
   type: git
   source:
@@ -73,8 +73,6 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: 10m
-    trigger: true    
   - get: PivotalDevOpsTutorial
     trigger: true
     params:
@@ -97,11 +95,7 @@ jobs:
 - name: load-tests
   serial: true
   public: true
-  plan:
-  - get: 10m
-    trigger: true
-    passed:
-      - deploy-app        
+  plan:    
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
@@ -138,22 +132,24 @@ jobs:
 - name: push-to-prod
   serial: true
   public: true
-  plan:
-  - get: 10m
-    trigger: true    
-    passed:
-      - load-tests    
+  plan:  
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
       - load-tests
+  - task: get-current-app-color
+    file: ci/tasks/current-app-get-info.yml
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_API: {{pcf-prod-api}}
       PCF_ORG: {{pcf-prod-organization}}
       PCF_USER: {{prod-deploy-username}}
       PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}
+      PCF_SPACE: {{pcf-prod-space}}  
+  - task: prepare-app-manifest
+    file: ci/tasks/app-manifest-prep.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}      
   - put: dynatrace
     params:
       monspecserviceenvironment: SampleJSonService/Production
@@ -161,7 +157,7 @@ jobs:
       deployversion: v1.5      
   - put: PCF-Prod
     params:
-      manifest: PivotalDevOpsTutorial/app/manifest-prod.yml
+      manifest: app-manifest-output/manifest.yml
       path: PivotalDevOpsTutorial/app
     on_success:
             #      put: ufo
@@ -178,14 +174,12 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: 10m
-    trigger: true  
-    passed:
-      - push-to-prod      
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
       - push-to-prod
+  - task: get-current-app-color
+    file: ci/tasks/current-app-get-info.yml      
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_API: {{pcf-prod-api}}
