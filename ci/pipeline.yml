@@ -138,7 +138,7 @@ jobs:
     passed:
       - load-tests
   - task: get-current-app-color
-    file: ci/tasks/current-app-get-info.yml
+    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_API: {{pcf-prod-api}}
