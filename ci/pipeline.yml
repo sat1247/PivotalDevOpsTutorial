@@ -99,7 +99,9 @@ jobs:
   public: true
   plan:
   - get: 10m
-    trigger: true    
+    trigger: true
+    passed:
+      - deploy-app        
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
@@ -139,6 +141,8 @@ jobs:
   plan:
   - get: 10m
     trigger: true    
+    passed:
+      - load-tests    
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
@@ -175,7 +179,9 @@ jobs:
   public: true
   plan:
   - get: 10m
-    trigger: true    
+    trigger: true  
+    passed:
+      - push-to-prod      
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
