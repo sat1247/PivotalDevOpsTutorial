@@ -21,6 +21,9 @@ resource_types:
     repository: mvilliger/dynatrace-resource
 
 resources:
+- name: 10m
+  type: time
+  source: {interval: 10m}  
 - name: PivotalDevOpsTutorial
   type: git
   source:
@@ -71,6 +74,8 @@ jobs:
   serial: true
   public: true
   plan:
+  - get: 5m
+    trigger: true    
   - get: PivotalDevOpsTutorial
     trigger: true
     params:
@@ -132,6 +137,7 @@ jobs:
   public: true
   plan:
   - get: PivotalDevOpsTutorial
+    trigger: true
     passed:
       - load-tests
     params:
