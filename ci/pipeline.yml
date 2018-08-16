@@ -202,3 +202,30 @@ jobs:
             #      params:
               #        UFO_ROW: top
               #        UFO_COLOR: ff0000
+
+- name: promote-new-version
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - load-tests-prod
+  - task: get-current-app-color
+    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_API: {{pcf-prod-api}}
+      PCF_ORG: {{pcf-prod-organization}}
+      PCF_USER: {{prod-deploy-username}}
+      PCF_PWD: {{prod-deploy-password}}
+      PCF_SPACE: {{pcf-prod-space}}
+  - task: switch-app-routes
+    file: PivotalDevOpsTutorial/ci/tasks/update-routes.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_API: {{pcf-prod-api}}
+      PCF_ORG: {{pcf-prod-organization}}
+      PCF_USER: {{prod-deploy-username}}
+      PCF_PWD: {{prod-deploy-password}}
+      PCF_SPACE: {{pcf-prod-space}}           
