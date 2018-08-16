@@ -225,8 +225,10 @@ jobs:
     file: PivotalDevOpsTutorial/ci/tasks/update-routes.yml
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
       PCF_API: {{pcf-prod-api}}
       PCF_ORG: {{pcf-prod-organization}}
       PCF_USER: {{prod-deploy-username}}
       PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}           
+      PCF_SPACE: {{pcf-prod-space}}
+                 
