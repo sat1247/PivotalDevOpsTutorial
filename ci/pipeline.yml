@@ -181,15 +181,15 @@ jobs:
     trigger: true
     passed:
       - push-to-prod
-  - task: get-current-app-color
-    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
-    params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-      PCF_API: {{pcf-prod-api}}
-      PCF_ORG: {{pcf-prod-organization}}
-      PCF_USER: {{prod-deploy-username}}
-      PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}
+  # - task: get-current-app-color
+  #   file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
+  #   params:
+  #     PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+  #     PCF_API: {{pcf-prod-api}}
+  #     PCF_ORG: {{pcf-prod-organization}}
+  #     PCF_USER: {{prod-deploy-username}}
+  #     PCF_PWD: {{prod-deploy-password}}
+  #     PCF_SPACE: {{pcf-prod-space}}
   - task: update-app-routes
     file: PivotalDevOpsTutorial/ci/tasks/update-routes.yml
     params:
@@ -209,15 +209,15 @@ jobs:
     trigger: true
     passed:
       - promote-new-version
-  - task: get-current-app-color
-    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
-    params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-      PCF_API: {{pcf-prod-api}}
-      PCF_ORG: {{pcf-prod-organization}}
-      PCF_USER: {{prod-deploy-username}}
-      PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}
+  # - task: get-current-app-color
+  #   file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
+  #   params:
+  #     PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+  #     PCF_API: {{pcf-prod-api}}
+  #     PCF_ORG: {{pcf-prod-organization}}
+  #     PCF_USER: {{prod-deploy-username}}
+  #     PCF_PWD: {{prod-deploy-password}}
+  #     PCF_SPACE: {{pcf-prod-space}}
   - task: run-load-tests
     file: PivotalDevOpsTutorial/ci/tasks/load-tests.yml
     params:
@@ -248,15 +248,15 @@ jobs:
     trigger: true
     passed:
       - load-tests-prod
-  - task: get-current-app-color
-    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
-    params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-      PCF_API: {{pcf-prod-api}}
-      PCF_ORG: {{pcf-prod-organization}}
-      PCF_USER: {{prod-deploy-username}}
-      PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}
+  # - task: get-current-app-color
+  #   file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
+  #   params:
+  #     PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+  #     PCF_API: {{pcf-prod-api}}
+  #     PCF_ORG: {{pcf-prod-organization}}
+  #     PCF_USER: {{prod-deploy-username}}
+  #     PCF_PWD: {{prod-deploy-password}}
+  #     PCF_SPACE: {{pcf-prod-space}}
   - task: validate-via-monspec
     file: PivotalDevOpsTutorial/ci/tasks/validate-via-monspec.yml
     params: 
@@ -264,31 +264,31 @@ jobs:
       apitoken: {{apitoken}}
       tenanthost: {{tenanthost}}    
 
-# - name: remove-old-version
-#   serial: true
-#   public: true
-#   plan:
-#   - get: PivotalDevOpsTutorial
-#     trigger: true
-#     passed:
-#       - load-tests-prod
-#   - task: get-current-app-color
-#     file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
-#     params:
-#       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-#       PCF_API: {{pcf-prod-api}}
-#       PCF_ORG: {{pcf-prod-organization}}
-#       PCF_USER: {{prod-deploy-username}}
-#       PCF_PWD: {{prod-deploy-password}}
-#       PCF_SPACE: {{pcf-prod-space}}
-#   - task: switch-app-routes
-#     file: PivotalDevOpsTutorial/ci/tasks/remove-routes.yml
-#     params:
-#       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-#       PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
-#       PCF_API: {{pcf-prod-api}}
-#       PCF_ORG: {{pcf-prod-organization}}
-#       PCF_USER: {{prod-deploy-username}}
-#       PCF_PWD: {{prod-deploy-password}}
-#       PCF_SPACE: {{pcf-prod-space}}      
+- name: remove-old-version
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - load-tests-prod
+  # - task: get-current-app-color
+  #   file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
+  #   params:
+  #     PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+  #     PCF_API: {{pcf-prod-api}}
+  #     PCF_ORG: {{pcf-prod-organization}}
+  #     PCF_USER: {{prod-deploy-username}}
+  #     PCF_PWD: {{prod-deploy-password}}
+  #     PCF_SPACE: {{pcf-prod-space}}
+  - task: switch-app-routes
+    file: PivotalDevOpsTutorial/ci/tasks/remove-routes.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
+      PCF_API: {{pcf-prod-api}}
+      PCF_ORG: {{pcf-prod-organization}}
+      PCF_USER: {{prod-deploy-username}}
+      PCF_PWD: {{prod-deploy-password}}
+      PCF_SPACE: {{pcf-prod-space}}      
                  
