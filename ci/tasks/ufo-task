@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-echo "setting UFO at $UFO_IP $UFO_ROW ring to $UFO_COLOR"
-
-curl "http://$UFO_IP/api?$UFO_ROW=0|15|$UFO_COLOR"
-
