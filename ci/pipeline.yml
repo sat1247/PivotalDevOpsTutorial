@@ -85,11 +85,11 @@ jobs:
       PCF_USER: {{stage-deploy-username}}
       PCF_PWD: {{stage-deploy-password}}
       PCF_SPACE: {{pcf-stage-space}}
-  - put: dynatrace
-    params:
-      monspecserviceenvironment: SampleJSonService/Staging
-      pipelinetaskname: ConcourseDeploy
-      deployversion: v1.5
+  # - put: dynatrace
+  #   params:
+  #     monspecserviceenvironment: SampleJSonService/Staging
+  #     pipelinetaskname: ConcourseDeploy
+  #     deployversion: v1.5
   - put: PCF-Stage
     params:
       manifest: PivotalDevOpsTutorial/app/manifest.yml
