@@ -6,7 +6,7 @@ groups:
   - push-to-prod
   - load-tests-prod
   - promote-new-version
-  - validate-prod-load-test
+  # - validate-prod-load-test
   - remove-old-version
 - name: init
   jobs:
@@ -115,16 +115,16 @@ jobs:
     params:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
-    on_success:
-            #      put: ufo
-            #      params:
-            #        UFO_ROW: top
-            #        UFO_COLOR: 00ff00
-    on_failure:
-            #      put: ufo
-            #      params:
-              #        UFO_ROW: top
-              #        UFO_COLOR: ff0000
+    # on_success:
+    #   put: ufo
+    #   params:
+    #     UFO_ROW: top
+    #     UFO_COLOR: 00ff00
+    # on_failure:
+    #   put: ufo
+    #   params:
+    #     UFO_ROW: top
+    #     UFO_COLOR: ff0000
   - task: push-dynatrace-monspec-data
     file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
     params: 
@@ -153,11 +153,11 @@ jobs:
     file: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep.yml
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}      
-  - put: dynatrace
-    params:
-      monspecserviceenvironment: SampleJSonService/Production
-      pipelinetaskname: ConcourseDeploy
-      deployversion: v1.5      
+#  - put: dynatrace
+#    params:
+#      monspecserviceenvironment: SampleJSonService/Production
+#      pipelinetaskname: ConcourseDeploy
+#      deployversion: v1.5      
   - put: PCF-Prod
     params:
       manifest: app-manifest-output/manifest.yml
@@ -223,46 +223,46 @@ jobs:
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
-    on_success:
-            #      put: ufo
-            #      params:
-            #        UFO_ROW: top
-            #        UFO_COLOR: 00ff00
-    on_failure:
-            #      put: ufo
-            #      params:
-              #        UFO_ROW: top
-              #        UFO_COLOR: ff0000
-  - task: push-dynatrace-monspec-data
-    file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
-    params: 
-      monspecserviceenvironment: SampleJSonService/Production
-      apitoken: {{apitoken}}
-      tenanthost: {{tenanthost}}
+    # on_success:
+    #   put: ufo
+    #   params:
+    #     UFO_ROW: bottom
+    #     UFO_COLOR: 00ff00
+    # on_failure:
+    #   put: ufo
+    #   params:
+    #     UFO_ROW: top
+    #     UFO_COLOR: ff0000
+#  - task: push-dynatrace-monspec-data
+#    file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
+#    params: 
+#      monspecserviceenvironment: SampleJSonService/Production
+#      apitoken: {{apitoken}}
+#      tenanthost: {{tenanthost}}
 
-- name: validate-prod-load-test
-  serial: true
-  public: true
-  plan:
-  - get: PivotalDevOpsTutorial
-    trigger: true
-    passed:
-      - load-tests-prod
-  - task: get-current-app-color
-    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
-    params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-      PCF_API: {{pcf-prod-api}}
-      PCF_ORG: {{pcf-prod-organization}}
-      PCF_USER: {{prod-deploy-username}}
-      PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}
-  - task: validate-via-monspec
-    file: PivotalDevOpsTutorial/ci/tasks/validate-via-monspec.yml
-    params: 
-      monspeccomparison: SampleJSonService/ProductionToProductionLastHour
-      apitoken: {{apitoken}}
-      tenanthost: {{tenanthost}}    
+# - name: validate-prod-load-test
+#  serial: true
+#  public: true
+#  plan:
+#  - get: PivotalDevOpsTutorial
+#    trigger: true
+#    passed:
+#      - load-tests-prod
+#  - task: get-current-app-color
+#    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
+#    params:
+#      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+#      PCF_API: {{pcf-prod-api}}
+#      PCF_ORG: {{pcf-prod-organization}}
+#      PCF_USER: {{prod-deploy-username}}
+#      PCF_PWD: {{prod-deploy-password}}
+#      PCF_SPACE: {{pcf-prod-space}}
+#  - task: validate-via-monspec
+#    file: PivotalDevOpsTutorial/ci/tasks/validate-via-monspec.yml
+#    params: 
+#      monspeccomparison: SampleJSonService/ProductionToProductionLastHour
+#      apitoken: {{apitoken}}
+#      tenanthost: {{tenanthost}}    
 
 - name: remove-old-version
   serial: true
