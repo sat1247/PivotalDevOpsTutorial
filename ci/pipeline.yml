@@ -243,7 +243,6 @@ jobs:
   public: true
   plan:
   - get: PivotalDevOpsTutorial
-- get: PivotalDevOpsTutorial
     trigger: true
     passed:
       - load-test-prod
