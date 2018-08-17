@@ -204,6 +204,38 @@ jobs:
               #        UFO_ROW: top
               #        UFO_COLOR: ff0000
 
+- name: validate-prod-load-test
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+- get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - load-test-prod
+  - task: get-current-app-color
+    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_API: {{pcf-prod-api}}
+      PCF_ORG: {{pcf-prod-organization}}
+      PCF_USER: {{prod-deploy-username}}
+      PCF_PWD: {{prod-deploy-password}}
+      PCF_SPACE: {{pcf-prod-space}}
+  - task: validate-via-monspec
+    file: PivotalDevOpsTutorial/ci/tasks/validate-via-monspec.yml
+    params: 
+      monspeccomparison: SampleJSonService/ProductionToProductionLastHour
+      apitoken: {{apitoken}}
+      tenanthost: {{tenanthost}}    
+
+  - task: push-dynatrace-monspec-data
+    file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
+    params: 
+      monspecserviceenvironment: SampleJSonService/Production
+      apitoken: {{apitoken}}
+      tenanthost: {{tenanthost}}
+
 - name: promote-new-version
   serial: true
   public: true
