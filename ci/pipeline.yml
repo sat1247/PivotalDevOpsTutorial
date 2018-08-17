@@ -271,7 +271,7 @@ jobs:
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
-      - load-tests-prod
+      - validate-prod-load-test
   # - task: get-current-app-color
   #   file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
   #   params:
