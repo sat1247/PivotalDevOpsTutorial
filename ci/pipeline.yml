@@ -6,6 +6,8 @@ groups:
   - push-to-prod
   - load-tests-prod
   - promote-new-version
+  - validate-prod-load-test
+  - remove-old-version
 - name: init
   jobs:
   - init-dynatrace
@@ -245,7 +247,7 @@ jobs:
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
-      - load-test-prod
+      - load-tests-prod
   - task: get-current-app-color
     file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
     params:
