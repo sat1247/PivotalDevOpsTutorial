@@ -6,7 +6,7 @@ applications:
   command: node app.js
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
   env:
-    DT_CLUSTER_ID: devops-sample-app-prod
+#    DT_CLUSTER_ID: devops-sample-app-prod
     DT_NODE_ID: APPNAME
     DT_CUSTOM_PROP: DEPLOYMENT_GRP=Production
     BUILD_NUMBER: 1

@@ -8,7 +8,7 @@ applications:
   path: .
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
   env:
-    DT_CLUSTER_ID: devops-sample-app-stage
+#    DT_CLUSTER_ID: devops-sample-app-stage
     DT_CUSTOM_PROP: DEPLOYMENT_GRP=Staging
     BUILD_NUMBER: 1
 
