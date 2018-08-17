@@ -55,11 +55,11 @@ resources:
     #  type: dynatrace-ufo-resource
     #  source:
     #    UFO_IP: {{ufo-ip}}
-- name: dynatrace
-  type: dynatrace-resource
-  source:
-    apitoken: {{apitoken}}
-    tenanthost: {{tenanthost}}
+# - name: dynatrace
+#   type: dynatrace-resource
+#   source:
+#     apitoken: {{apitoken}}
+#     tenanthost: {{tenanthost}}
     
 jobs:
 - name: init-dynatrace
