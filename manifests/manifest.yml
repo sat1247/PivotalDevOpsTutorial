@@ -3,11 +3,11 @@ applications:
 - name: APPNAME
   memory: 256M
   instances: 1
-#  host: devops-sample-app
   command: node app.js
-#  path: .
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
   env:
+    DT_CLUSTER_ID: devops-sample-app-prod
+    DT_NODE_ID: APPNAME
     DT_CUSTOM_PROP: DEPLOYMENT_GRP=Production
     BUILD_NUMBER: 1
 
