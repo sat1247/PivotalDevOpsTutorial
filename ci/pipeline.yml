@@ -55,11 +55,11 @@ resources:
     #  type: dynatrace-ufo-resource
     #  source:
     #    UFO_IP: {{ufo-ip}}
-# - name: dynatrace
-#   type: dynatrace-resource
-#   source:
-#     apitoken: {{apitoken}}
-#     tenanthost: {{tenanthost}}
+- name: dynatrace
+  type: dynatrace-resource
+  source:
+    apitoken: {{apitoken}}
+    tenanthost: {{tenanthost}}
     
 jobs:
 - name: init-dynatrace
@@ -85,11 +85,11 @@ jobs:
       PCF_USER: {{stage-deploy-username}}
       PCF_PWD: {{stage-deploy-password}}
       PCF_SPACE: {{pcf-stage-space}}
-  # - put: dynatrace
-  #   params:
-  #     monspecserviceenvironment: SampleJSonService/Staging
-  #     pipelinetaskname: ConcourseDeploy
-  #     deployversion: v1.5
+  - put: dynatrace
+    params:
+      monspecserviceenvironment: SampleJSonService/Staging
+      pipelinetaskname: ConcourseDeploy
+      deployversion: v1.5
   - put: PCF-Stage
     params:
       manifest: PivotalDevOpsTutorial/app/manifest.yml
@@ -153,11 +153,11 @@ jobs:
     file: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep.yml
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}      
-#  - put: dynatrace
-#    params:
-#      monspecserviceenvironment: SampleJSonService/Production
-#      pipelinetaskname: ConcourseDeploy
-#      deployversion: v1.5      
+ - put: dynatrace
+   params:
+     monspecserviceenvironment: SampleJSonService/Production
+     pipelinetaskname: ConcourseDeploy
+     deployversion: v1.5      
   - put: PCF-Prod
     params:
       manifest: app-manifest-output/manifest.yml
