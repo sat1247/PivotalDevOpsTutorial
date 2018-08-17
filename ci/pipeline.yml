@@ -7,7 +7,7 @@ groups:
   - load-tests-prod
   - promote-new-version
   - validate-prod-load-test
-  # - remove-old-version
+  - remove-old-version
 - name: init
   jobs:
   - init-dynatrace
