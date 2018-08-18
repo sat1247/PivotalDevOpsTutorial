@@ -89,7 +89,23 @@
                 "scalefactorperc" : { "default": 10, "com.dynatrace.builtin:service.requestspermin" : 30},
                 "shiftsourcetimeframe" : 60,
                 "shiftcomparetimeframe" : 3600
-            }  
+            },
+            { 
+                "name" : "Production-greenToProductionLastHour",
+                "source" : "Production-green",
+                "compare" : "Production",
+                "scalefactorperc" : { "default": 10, "com.dynatrace.builtin:service.requestspermin" : 30},
+                "shiftsourcetimeframe" : 60,
+                "shiftcomparetimeframe" : 3600
+            },
+            { 
+                "name" : "Production-blueToProductionLastHour",
+                "source" : "Production-blue",
+                "compare" : "Production",
+                "scalefactorperc" : { "default": 10, "com.dynatrace.builtin:service.requestspermin" : 30},
+                "shiftsourcetimeframe" : 60,
+                "shiftcomparetimeframe" : 3600
+            }              
         ],
         "_comment_comparisons" : "Allows you to define different comparison configurations which can be used to automate comparison between environments and timeframes",
         "perfsignature" : [
