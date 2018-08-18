@@ -11,7 +11,7 @@ set -e
 if [ -n "$PRODUCTION" ]; then
 export NEXT_APP_COLOR=$(cat ./current-app-info/next-app.txt)
 export NEXT_APP_URL=http://$NEXT_APP_COLOR-$PCF_APP_SUFFIX.$PCF_APP_DOMAIN/
-else;
+else
 export LOAD_URL=http://$NEXT_APP_COLOR.$PCF_APP_DOMAIN/
 fi
 
