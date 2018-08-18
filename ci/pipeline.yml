@@ -5,9 +5,8 @@ groups:
   - load-tests
   - push-to-prod
   - load-tests-prod
-  - promote-new-version
   - validate-prod-load-test
-  - remove-old-version
+  - promote-new-version
 - name: init
   jobs:
   - init-dynatrace
@@ -172,34 +171,6 @@ jobs:
             #      params:
             #        UFO_ROW: top
             #        UFO_COLOR: ff0000
-        
-- name: promote-new-version
-  serial: true
-  public: true
-  plan:
-  - get: PivotalDevOpsTutorial
-    trigger: true
-    passed:
-      - push-to-prod
-  - task: get-current-app-color
-    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
-    params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-      PCF_API: {{pcf-prod-api}}
-      PCF_ORG: {{pcf-prod-organization}}
-      PCF_USER: {{prod-deploy-username}}
-      PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}
-  - task: update-app-routes
-    file: PivotalDevOpsTutorial/ci/tasks/update-routes.yml
-    params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-      PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
-      PCF_API: {{pcf-prod-api}}
-      PCF_ORG: {{pcf-prod-organization}}
-      PCF_USER: {{prod-deploy-username}}
-      PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}
 
 - name: load-tests-prod
   serial: true
@@ -208,7 +179,7 @@ jobs:
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
-      - promote-new-version
+      - push-to-prod
   - task: get-current-app-color
     file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
     params:
@@ -264,7 +235,7 @@ jobs:
       apitoken: {{apitoken}}
       tenanthost: {{tenanthost}}    
 
-- name: remove-old-version
+- name: promote-new-version
   serial: true
   public: true
   plan:
