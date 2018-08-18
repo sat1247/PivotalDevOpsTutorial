@@ -253,7 +253,7 @@ jobs:
       PCF_PWD: {{prod-deploy-password}}
       PCF_SPACE: {{pcf-prod-space}}
   - task: switch-app-routes
-    file: PivotalDevOpsTutorial/ci/tasks/remove-routes.yml
+    file: PivotalDevOpsTutorial/ci/tasks/update-routes.yml
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
