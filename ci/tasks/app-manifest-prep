@@ -4,7 +4,7 @@ set -xe
 
 cat ./current-app-info/current-app.txt
 
-sed "s/APPNAME/$(cat ./current-app-info/next-app.txt)-$PCF_APP_SUFFIX/" ./PivotalDevOpsTutorial/manifests/manifest.yml > ./app-manifest-output/manifest.yml
-sed "s/APPCOLOR/$(cat ./current-app-info/next-app.txt)/" ./PivotalDevOpsTutorial/manifests/manifest.yml > ./app-manifest-output/manifest.yml
+sed "s/APPNAME/$(cat ./current-app-info/next-app.txt)-$PCF_APP_SUFFIX/" ./PivotalDevOpsTutorial/manifests/manifest.yml > ./app-manifest-output/manifest-tmp.yml
+sed "s/APPCOLOR/$(cat ./current-app-info/next-app.txt)/" ./app-manifest-output/manifest-tmp.yml > ./app-manifest-output/manifest.yml
 
 cat ./app-manifest-output/manifest.yml
