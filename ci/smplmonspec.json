@@ -24,7 +24,7 @@
                     }                
                 ]                
             },            
-            "Production-Blue" : {
+            "Production-blue" : {
                 "tags" : [
                     {
                         "context": "CONTEXTLESS",
@@ -33,7 +33,7 @@
                     }                
                 ]                
             },
-            "Production-Green" : {
+            "Production-green" : {
                 "tags" : [
                     {
                         "context": "CONTEXTLESS",
