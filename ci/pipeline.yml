@@ -196,6 +196,7 @@ jobs:
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
+      PRODUCTION: true
     # on_success:
     #   put: ufo
     #   params:
