@@ -9,7 +9,7 @@ python /dtcli/dtcli.py config apitoken $apitoken tenanthost $tenanthost
 export NEXT_APP_COLOR=$(cat ./current-app-info/next-app.txt)
 export CURRENT_APP_COLOR=$(cat ./current-app-info/current-app.txt)
 
-eval monspecserviceenvironment=$monspecserviceenvironment
+eval monspeccomparison=$monspeccomparison
 
 echo "Validating load test results via monspec comparison $monspeccomparison after 60s wait"
 sleep 60
