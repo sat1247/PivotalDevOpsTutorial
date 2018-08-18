@@ -102,6 +102,8 @@ jobs:
     trigger: true
     passed:
       - deploy-app
+  - task: get-current-app-color
+    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
     params:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_API: {{pcf-stage-api}}
