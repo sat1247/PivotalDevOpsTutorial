@@ -23,7 +23,25 @@
                         "value": "Production"
                     }                
                 ]                
-            }
+            },            
+            "Production-Blue" : {
+                "tags" : [
+                    {
+                        "context": "CONTEXTLESS",
+                        "key": "DeploymentColor", 
+                        "value": "blue"
+                    }                
+                ]                
+            },
+            "Production-Green" : {
+                "tags" : [
+                    {
+                        "context": "CONTEXTLESS",
+                        "key": "DeploymentColor", 
+                        "value": "green"
+                    }                
+                ]                
+            }            
         },
         "_comment_environments" : "Allows you to define different environments and the ways dynatrace can identify the entities in that environment",
         "comparisons" : [

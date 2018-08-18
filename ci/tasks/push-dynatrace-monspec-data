@@ -5,6 +5,8 @@ set -e
 echo "configuring Dynatrace CLI with $apitoken and $tenanthost"
 
 python /dtcli/dtcli.py config apitoken $apitoken tenanthost $tenanthost
+export NEXT_APP_COLOR=$(cat ./current-app-info/next-app.txt)
+#export monspecserviceenvironment=SampleJSonService/Production-Green
 
 echo "Pushing Dynatrace monspec data for $monspecserviceenvironment after waiting 60s for data to hit Dynatrace"
 sleep 60

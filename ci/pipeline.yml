@@ -207,7 +207,7 @@ jobs:
   - task: push-dynatrace-monspec-data
     file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
     params: 
-      monspecserviceenvironment: SampleJSonService/Production
+      monspecserviceenvironment: SampleJSonService/Production-$NEXT_APP_COLOR
       apitoken: {{apitoken}}
       tenanthost: {{tenanthost}}
 
