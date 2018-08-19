@@ -260,7 +260,7 @@ jobs:
   - task: validate-via-monspec
     file: PivotalDevOpsTutorial/ci/tasks/validate-via-monspec.yml
     params: 
-      monspeccomparison: SampleJSonService/Production-$NEXT_APP_COLOR\ToProductionLast5m
+      monspeccomparison: SampleJSonService/Production-$NEXT_APP_COLOR\ToProduction-$CURRENT_APP_COLOR\Last5m
       apitoken: {{apitoken}}
       tenanthost: {{tenanthost}}    
 

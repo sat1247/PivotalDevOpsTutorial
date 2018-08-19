@@ -91,17 +91,17 @@
                 "shiftcomparetimeframe" : 300
             },
             { 
-                "name" : "Production-greenToProductionLast5m",
+                "name" : "Production-greenToProduction-blueLast5m",
                 "source" : "Production-green",
-                "compare" : "Production",
+                "compare" : "Production-blue",
                 "scalefactorperc" : { "default": 10, "com.dynatrace.builtin:service.requestspermin" : 30},
                 "shiftsourcetimeframe" : 60,
                 "shiftcomparetimeframe" : 300
             },
             { 
-                "name" : "Production-blueToProductionLast5m",
+                "name" : "Production-blueToProduction-greenLast5m",
                 "source" : "Production-blue",
-                "compare" : "Production",
+                "compare" : "Production-green",
                 "scalefactorperc" : { "default": 10, "com.dynatrace.builtin:service.requestspermin" : 30},
                 "shiftsourcetimeframe" : 60,
                 "shiftcomparetimeframe" : 300
