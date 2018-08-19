@@ -3,6 +3,7 @@ groups:
   jobs:
   - deploy-app
   - load-tests
+  - validate-stage-load-test
   - push-to-prod
   - load-tests-prod
   - validate-prod-load-test
@@ -133,6 +134,31 @@ jobs:
       apitoken: {{apitoken}}
       tenanthost: {{tenanthost}}
 
+- name: validate-stage-load-test
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - load-tests
+  - task: get-current-app-color
+    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_API: {{pcf-prod-api}}
+      PCF_ORG: {{pcf-prod-organization}}
+      PCF_USER: {{prod-deploy-username}}
+      PCF_PWD: {{prod-deploy-password}}
+      PCF_SPACE: {{pcf-prod-space}}
+  - task: validate-via-monspec
+    file: PivotalDevOpsTutorial/ci/tasks/validate-via-monspec.yml
+    params: 
+      monspeccomparison: SampleJSonService/StagingToStagingLastHour
+      apitoken: {{apitoken}}
+      tenanthost: {{tenanthost}}   
+
+
 - name: push-to-prod
   serial: true
   public: true
@@ -140,7 +166,7 @@ jobs:
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
-      - load-tests
+      - validate-stage-load-test
   - task: get-current-app-color
     file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
     params:
