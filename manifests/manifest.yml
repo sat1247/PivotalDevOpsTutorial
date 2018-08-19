@@ -9,5 +9,5 @@ applications:
 #    DT_CLUSTER_ID: devops-sample-app-prod
     DT_NODE_ID: APPNAME
     DT_CUSTOM_PROP: DEPLOYMENT_GRP_NAME=Production DEPLOYMENT_COLOR=APPCOLOR
-    BUILD_NUMBER: 3
+    BUILD_NUMBER: 1
 
