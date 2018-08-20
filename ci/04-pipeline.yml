@@ -48,6 +48,10 @@ resources:
     skip_cert_check: true
     space: {{pcf-prod-space}}
     current_app_name: {{pcf-prod-app-suffix}}
+    - name: ufo
+      type: dynatrace-ufo-resource
+      source:
+        UFO_IP: {{ufo-ip}}
 - name: dynatrace
   type: dynatrace-resource
   source:
@@ -110,6 +114,16 @@ jobs:
     params:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
+    on_success:
+      put: ufo
+      params:
+        UFO_ROW: top
+        UFO_COLOR: 00ff00
+    on_failure:
+      put: ufo
+      params:
+        UFO_ROW: top
+        UFO_COLOR: ff0000
   - task: push-dynatrace-monspec-data
     file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
     params: 
@@ -172,6 +186,16 @@ jobs:
     params:
       manifest: app-manifest-output/manifest.yml
       path: PivotalDevOpsTutorial/app
+    on_success:
+      put: ufo
+      params:
+        UFO_ROW: bottom
+        UFO_COLOR: 00ff00
+    on_failure:
+      put: ufo
+      params:
+        UFO_ROW: bottom
+        UFO_COLOR: ff0000
 
 - name: load-tests-prod
   serial: true
@@ -196,7 +220,16 @@ jobs:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
       PRODUCTION: true
-
+    on_success:
+      put: ufo
+      params:
+        UFO_ROW: bottom
+        UFO_COLOR: 00ff00
+    on_failure:
+      put: ufo
+      params:
+        UFO_ROW: bottom
+        UFO_COLOR: ff0000
   - task: push-dynatrace-monspec-data
     file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
     params: 

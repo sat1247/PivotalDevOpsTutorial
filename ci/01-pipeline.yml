@@ -8,19 +8,6 @@ groups:
   - load-tests-prod
   - validate-prod-load-test
   - promote-new-version
-- name: init
-  jobs:
-  - init-dynatrace
-
-resource_types:
-- name: dynatrace-ufo-resource
-  type: docker-image
-  source:
-    repository: mvilliger/dynatrace-ufo-resource
-- name: dynatrace-resource
-  type: docker-image
-  source:
-    repository: mvilliger/dynatrace-resource
 
 resources:
 - name: PivotalDevOpsTutorial
@@ -48,22 +35,6 @@ resources:
     skip_cert_check: true
     space: {{pcf-prod-space}}
     current_app_name: {{pcf-prod-app-suffix}}
-- name: dynatrace
-  type: dynatrace-resource
-  source:
-    apitoken: {{apitoken}}
-    tenanthost: {{tenanthost}}
-    
-jobs:
-- name: init-dynatrace
-  public: true
-  plan:
-  - get: PivotalDevOpsTutorial
-  - task: init-dynatrace-task
-    file: PivotalDevOpsTutorial/ci/tasks/init-dynatrace-task.yml
-    params: 
-      apitoken: {{apitoken}}
-      tenanthost: {{tenanthost}}
 
 - name: deploy-app
   serial: true
@@ -78,11 +49,6 @@ jobs:
       PCF_USER: {{stage-deploy-username}}
       PCF_PWD: {{stage-deploy-password}}
       PCF_SPACE: {{pcf-stage-space}}
-  - put: dynatrace
-    params:
-      monspecserviceenvironment: SampleJSonService/Staging
-      pipelinetaskname: ConcourseDeploy
-      deployversion: v1.5
   - put: PCF-Stage
     params:
       manifest: PivotalDevOpsTutorial/app/manifest.yml
@@ -110,46 +76,15 @@ jobs:
     params:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
-  - task: push-dynatrace-monspec-data
-    file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
-    params: 
-      monspecserviceenvironment: SampleJSonService/Staging
-      apitoken: {{apitoken}}
-      tenanthost: {{tenanthost}}
-
-- name: validate-stage-load-test
-  serial: true
-  public: true
-  plan:
-  - get: PivotalDevOpsTutorial
-    trigger: true
-    passed:
-      - load-tests
-  - task: get-current-app-color
-    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
-    params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-      PCF_API: {{pcf-prod-api}}
-      PCF_ORG: {{pcf-prod-organization}}
-      PCF_USER: {{prod-deploy-username}}
-      PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}
-  - task: validate-via-monspec
-    file: PivotalDevOpsTutorial/ci/tasks/validate-via-monspec.yml
-    params: 
-      monspeccomparison: SampleJSonService/StagingToStagingLastHour
-      apitoken: {{apitoken}}
-      tenanthost: {{tenanthost}}   
-
 
 - name: push-to-prod
   serial: true
   public: true
   plan:  
   - get: PivotalDevOpsTutorial
-    trigger: true
+    trigger: false
     passed:
-      - validate-stage-load-test
+      - load-tests
   - task: get-current-app-color
     file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
     params:
@@ -162,12 +97,7 @@ jobs:
   - task: prepare-app-manifest
     file: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep.yml
     params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}      
-  - put: dynatrace
-    params:
-      monspecserviceenvironment: SampleJSonService/Production
-      pipelinetaskname: ConcourseDeploy
-      deployversion: v1.5      
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}  
   - put: PCF-Prod
     params:
       manifest: app-manifest-output/manifest.yml
@@ -196,37 +126,6 @@ jobs:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
       PRODUCTION: true
-
-  - task: push-dynatrace-monspec-data
-    file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
-    params: 
-      monspecserviceenvironment: SampleJSonService/Production-$NEXT_APP_COLOR
-      apitoken: {{apitoken}}
-      tenanthost: {{tenanthost}}
-
-- name: validate-prod-load-test
-  serial: true
-  public: true
-  plan:
-  - get: PivotalDevOpsTutorial
-    trigger: true
-    passed:
-      - load-tests-prod
-  - task: get-current-app-color
-    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
-    params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
-      PCF_API: {{pcf-prod-api}}
-      PCF_ORG: {{pcf-prod-organization}}
-      PCF_USER: {{prod-deploy-username}}
-      PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}
-  - task: validate-via-monspec
-    file: PivotalDevOpsTutorial/ci/tasks/validate-via-monspec.yml
-    params: 
-      monspeccomparison: SampleJSonService/Production-$NEXT_APP_COLOR\ToProduction-$CURRENT_APP_COLOR\Last5m
-      apitoken: {{apitoken}}
-      tenanthost: {{tenanthost}}    
 
 - name: promote-new-version
   serial: true

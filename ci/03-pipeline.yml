@@ -13,10 +13,6 @@ groups:
   - init-dynatrace
 
 resource_types:
-- name: dynatrace-ufo-resource
-  type: docker-image
-  source:
-    repository: mvilliger/dynatrace-ufo-resource
 - name: dynatrace-resource
   type: docker-image
   source:
@@ -172,7 +168,6 @@ jobs:
     params:
       manifest: app-manifest-output/manifest.yml
       path: PivotalDevOpsTutorial/app
-
 - name: load-tests-prod
   serial: true
   public: true
@@ -196,7 +191,6 @@ jobs:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
       PRODUCTION: true
-
   - task: push-dynatrace-monspec-data
     file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
     params: 

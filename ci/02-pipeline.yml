@@ -3,13 +3,16 @@ groups:
   jobs:
   - deploy-app
   - load-tests
+  - validate-stage-load-test
   - push-to-prod
+  - load-tests-prod
+  - validate-prod-load-test
+  - promote-new-version
+- name: init
+  jobs:
+  - init-dynatrace
 
 resource_types:
-- name: dynatrace-ufo-resource
-  type: docker-image
-  source:
-    repository: mvilliger/dynatrace-ufo-resource
 - name: dynatrace-resource
   type: docker-image
   source:
@@ -41,10 +44,6 @@ resources:
     skip_cert_check: true
     space: {{pcf-prod-space}}
     current_app_name: {{pcf-prod-app-suffix}}
-- name: ufo
-  type: dynatrace-ufo-resource
-  source:
-    UFO_IP: {{ufo-ip}}
 - name: dynatrace
   type: dynatrace-resource
   source:
@@ -52,6 +51,16 @@ resources:
     tenanthost: {{tenanthost}}
     
 jobs:
+- name: init-dynatrace
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+  - task: init-dynatrace-task
+    file: PivotalDevOpsTutorial/ci/tasks/init-dynatrace-task.yml
+    params: 
+      apitoken: {{apitoken}}
+      tenanthost: {{tenanthost}}
+
 - name: deploy-app
   serial: true
   public: true
@@ -78,11 +87,13 @@ jobs:
 - name: load-tests
   serial: true
   public: true
-  plan:
+  plan:    
   - get: PivotalDevOpsTutorial
     trigger: true
     passed:
       - deploy-app
+  - task: get-current-app-color
+    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
     params:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_API: {{pcf-stage-api}}
@@ -95,24 +106,48 @@ jobs:
     params:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-stage-app-domain}}
-    on_success:
-      put: ufo
-      params:
-        UFO_ROW: top
-        UFO_COLOR: 00ff00
-    on_failure:
-      put: ufo
-      params:
-        UFO_ROW: top
-        UFO_COLOR: ff0000
-
+ 
 - name: push-to-prod
+  serial: true
+  public: true
+  plan:  
+  - get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - load-tests
+  - task: get-current-app-color
+    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_API: {{pcf-prod-api}}
+      PCF_ORG: {{pcf-prod-organization}}
+      PCF_USER: {{prod-deploy-username}}
+      PCF_PWD: {{prod-deploy-password}}
+      PCF_SPACE: {{pcf-prod-space}}  
+  - task: prepare-app-manifest
+    file: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}      
+  - put: dynatrace
+    params:
+      monspecserviceenvironment: SampleJSonService/Production
+      pipelinetaskname: ConcourseDeploy
+      deployversion: v1.5      
+  - put: PCF-Prod
+    params:
+      manifest: app-manifest-output/manifest.yml
+      path: PivotalDevOpsTutorial/app
+
+- name: load-tests-prod
   serial: true
   public: true
   plan:
   - get: PivotalDevOpsTutorial
+    trigger: true
     passed:
-      - load-tests
+      - push-to-prod
+  - task: get-current-app-color
+    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml      
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_API: {{pcf-prod-api}}
@@ -120,17 +155,38 @@ jobs:
       PCF_USER: {{prod-deploy-username}}
       PCF_PWD: {{prod-deploy-password}}
       PCF_SPACE: {{pcf-prod-space}}
-  - put: PCF-Prod
+  - task: run-load-tests
+    file: PivotalDevOpsTutorial/ci/tasks/load-tests.yml
     params:
-      manifest: PivotalDevOpsTutorial/app/manifest-prod.yml
-      path: PivotalDevOpsTutorial/app
-    on_success:
-      put: ufo
-      params:
-        UFO_ROW: bottom
-        UFO_COLOR: 00ff00
-    on_failure:
-      put: ufo
-      params:
-        UFO_ROW: top
-        UFO_COLOR: ff0000
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
+      PRODUCTION: true
+
+- name: promote-new-version
+  serial: true
+  public: true
+  plan:
+  - get: PivotalDevOpsTutorial
+    trigger: true
+    passed:
+      - load-tests-prod
+  - task: get-current-app-color
+    file: PivotalDevOpsTutorial/ci/tasks/current-app-get-info.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_API: {{pcf-prod-api}}
+      PCF_ORG: {{pcf-prod-organization}}
+      PCF_USER: {{prod-deploy-username}}
+      PCF_PWD: {{prod-deploy-password}}
+      PCF_SPACE: {{pcf-prod-space}}
+  - task: switch-app-routes
+    file: PivotalDevOpsTutorial/ci/tasks/update-routes.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
+      PCF_API: {{pcf-prod-api}}
+      PCF_ORG: {{pcf-prod-organization}}
+      PCF_USER: {{prod-deploy-username}}
+      PCF_PWD: {{prod-deploy-password}}
+      PCF_SPACE: {{pcf-prod-space}}      
+                 
