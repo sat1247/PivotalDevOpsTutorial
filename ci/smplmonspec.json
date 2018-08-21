@@ -86,7 +86,7 @@
                 "name" : "ProductionToProductionLast5m",
                 "source" : "Production",
                 "compare" : "Production",
-                "scalefactorperc" : { "default": 10, "com.dynatrace.builtin:service.requestspermin" : 30},
+                "scalefactorperc" : { "default": 20, "com.dynatrace.builtin:service.requestspermin" : 30},
                 "shiftsourcetimeframe" : 60,
                 "shiftcomparetimeframe" : 300
             },
@@ -94,7 +94,7 @@
                 "name" : "Production-greenToProduction-blueLast5m",
                 "source" : "Production-green",
                 "compare" : "Production-blue",
-                "scalefactorperc" : { "default": 10, "com.dynatrace.builtin:service.requestspermin" : 30},
+                "scalefactorperc" : { "default": 20, "com.dynatrace.builtin:service.requestspermin" : 100},
                 "shiftsourcetimeframe" : 60,
                 "shiftcomparetimeframe" : 60
             },
@@ -102,7 +102,7 @@
                 "name" : "Production-blueToProduction-greenLast5m",
                 "source" : "Production-blue",
                 "compare" : "Production-green",
-                "scalefactorperc" : { "default": 10, "com.dynatrace.builtin:service.requestspermin" : 30},
+                "scalefactorperc" : { "default": 20, "com.dynatrace.builtin:service.requestspermin" : 100},
                 "shiftsourcetimeframe" : 60,
                 "shiftcomparetimeframe" : 60
             }              
