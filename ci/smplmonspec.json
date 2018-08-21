@@ -51,7 +51,7 @@
                 "compare" : "Production",
                 "scalefactorperc" : {
                     "default": 100,
-                    "com.dynatrace.builtin:service.requestspermin" : 90
+                    "com.dynatrace.builtin:service.requestspermin" : 99
                 },
                 "shiftcomparetimeframe" : 2,
                 "shiftsourcetimeframe" : 2,
