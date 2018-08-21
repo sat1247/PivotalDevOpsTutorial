@@ -12,21 +12,21 @@ export CURRENT_APP_COLOR=$(cat ./current-app-info/current-app.txt)
 eval monspeccomparison=$monspeccomparison
 
 echo "Validating load test results via monspec comparison $monspeccomparison"
+echo "Current seconds since epoch is $(date -u +%s)"
 
 # disabling pushcompare as it doesn't create problems anyways
 #python /dtcli/dtcli.py monspec pushcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 60 > monspecpullcompare.json
 
 # fetching monspec comparison results, pretty-printing them, then failing if totalViolations > 0 via POSIX compliant logic for portability
-# disabling logic temporarily since debug output is not in JSON
-# python /dtcli/dtcli.py monspec pullcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 180 > monspecpullcompare.json
-# jq '.' monspecpullcompare.json
-# totalViolations="$(jq -r '.totalViolations' monspecpullcompare.json)"
-# if [ $totalViolations -gt 0 ]; then
-# echo "We encountered $totalViolations monspec violations, failing build"
-# exit 1
-# else 
-# echo "No monspec violations encountered"
-# exit 0
-# fi
-echo "Current seconds since epoch is $(date -u +%s)"
-python /dtcli/dtcli.py monspec pullcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 10
+
+python /dtcli/dtcli.py monspec pullcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 10 > monspecpullcompare.json
+jq '.' monspecpullcompare.json
+totalViolations="$(jq -r '.totalViolations' monspecpullcompare.json)"
+if [ $totalViolations -gt 0 ]; then
+echo "We encountered $totalViolations monspec violations, failing build"
+exit 1
+else 
+echo "No monspec violations encountered"
+exit 0
+fi
+
