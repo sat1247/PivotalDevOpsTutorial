@@ -10,4 +10,7 @@ export NEXT_APP_COLOR=$(cat ./current-app-info/next-app.txt)
 eval monspecserviceenvironment=$monspecserviceenvironment
 echo "Pushing Dynatrace monspec data for $monspecserviceenvironment after waiting 120s for data to hit Dynatrace"
 sleep 120
+echo "Current seconds since epoch is $(date -u +%s)"
+echo "Current seconds since epoch 3 minutes ago is $(date --date='180 seconds ago' -u +%s)"
+
 python /dtcli/dtcli.py monspec push ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspecserviceenvironment 180 120
