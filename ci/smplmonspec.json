@@ -53,8 +53,8 @@
                     "default": 50,
                     "com.dynatrace.builtin:service.requestspermin" : 90
                 },
-                "shiftcomparetimeframe" : 120,
-                "shiftsourcetimeframe" : 120,
+                "shiftcomparetimeframe" : 2,
+                "shiftsourcetimeframe" : 2,
 
                 "_comment_name" : "Name of that comparison setting. Needs to be specified when using this file with our automation scripts",
                 "_comment_source" : "source entites. we compare timeseries from this entity with compare",
@@ -71,40 +71,40 @@
                     "default": 15,
                     "com.dynatrace.builtin:service.requestspermin" : 90
                 },
-                "shiftsourcetimeframe" : 120,
-                "shiftcomparetimeframe" : 86400
+                "shiftsourcetimeframe" : 2,
+                "shiftcomparetimeframe" : 1440
             },
             { 
                 "name" : "StagingToStagingLastHour",
                 "source" : "Staging",
                 "compare" : "Staging",
                 "scalefactorperc" : { "default": 10},
-                "shiftsourcetimeframe" : 120,
-                "shiftcomparetimeframe" : 3600
+                "shiftsourcetimeframe" : 2,
+                "shiftcomparetimeframe" : 60
             },
             { 
                 "name" : "ProductionToProductionLast5m",
                 "source" : "Production",
                 "compare" : "Production",
                 "scalefactorperc" : { "default": 20, "com.dynatrace.builtin:service.requestspermin" : 30},
-                "shiftsourcetimeframe" : 120,
-                "shiftcomparetimeframe" : 300
+                "shiftsourcetimeframe" : 2,
+                "shiftcomparetimeframe" : 10
             },
             { 
                 "name" : "Production-greenToProduction-blueLast5m",
                 "source" : "Production-green",
                 "compare" : "Production-blue",
                 "scalefactorperc" : { "default": 20, "com.dynatrace.builtin:service.requestspermin" : 100},
-                "shiftsourcetimeframe" : 120,
-                "shiftcomparetimeframe" : 300
+                "shiftsourcetimeframe" : 2,
+                "shiftcomparetimeframe" : 10
             },
             { 
                 "name" : "Production-blueToProduction-greenLast5m",
                 "source" : "Production-blue",
                 "compare" : "Production-green",
                 "scalefactorperc" : { "default": 20, "com.dynatrace.builtin:service.requestspermin" : 100},
-                "shiftsourcetimeframe" : 120,
-                "shiftcomparetimeframe" : 300
+                "shiftsourcetimeframe" : 2,
+                "shiftcomparetimeframe" : 10
             }              
         ],
         "_comment_comparisons" : "Allows you to define different comparison configurations which can be used to automate comparison between environments and timeframes",

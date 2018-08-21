@@ -29,4 +29,4 @@ echo "Validating load test results via monspec comparison $monspeccomparison"
 # exit 0
 # fi
 echo "Current seconds since epoch is $(date -u +%s)"
-python /dtcli/dtcli.py monspec pullcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 180
+python /dtcli/dtcli.py monspec pullcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 10
