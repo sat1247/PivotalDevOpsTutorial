@@ -137,7 +137,7 @@ jobs:
   - task: validate-via-monspec
     file: PivotalDevOpsTutorial/ci/tasks/validate-via-monspec.yml
     params: 
-      monspeccomparison: SampleJSonService/StagingToStagingLastHour
+      monspeccomparison: SampleJSonService/StagingToProduction
       apitoken: {{apitoken}}
       tenanthost: {{tenanthost}}   
 
@@ -196,7 +196,6 @@ jobs:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
       PCF_APP_DOMAIN: {{pcf-prod-app-domain}}
       PRODUCTION: true
-
   - task: push-dynatrace-monspec-data
     file: PivotalDevOpsTutorial/ci/tasks/push-dynatrace-monspec-data.yml
     params: 
