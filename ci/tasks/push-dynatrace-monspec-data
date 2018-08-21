@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 echo "configuring Dynatrace CLI with $apitoken and $tenanthost"
 
@@ -10,4 +10,4 @@ export NEXT_APP_COLOR=$(cat ./current-app-info/next-app.txt)
 eval monspecserviceenvironment=$monspecserviceenvironment
 echo "Pushing Dynatrace monspec data for $monspecserviceenvironment after waiting 60s for data to hit Dynatrace"
 sleep 60
-python /dtcli/dtcli.py monspec push ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspecserviceenvironment 3 1
+python /dtcli/dtcli.py monspec push ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspecserviceenvironment 180 60
