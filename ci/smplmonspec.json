@@ -53,8 +53,8 @@
                     "default": 30,
                     "com.dynatrace.builtin:service.requestspermin" : 90
                 },
-                "shiftcomparetimeframe" : 0,
-                "shiftsourcetimeframe" : 0,
+                "shiftcomparetimeframe" : 60,
+                "shiftsourcetimeframe" : 60,
 
                 "_comment_name" : "Name of that comparison setting. Needs to be specified when using this file with our automation scripts",
                 "_comment_source" : "source entites. we compare timeseries from this entity with compare",

@@ -18,7 +18,7 @@ sleep 60
 #python /dtcli/dtcli.py monspec pushcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 60 > monspecpullcompare.json
 
 # fetching monspec comparison results, pretty-printing them, then failing if totalViolations > 0 via POSIX compliant logic for portability
-python /dtcli/dtcli.py monspec pullcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 60 > monspecpullcompare.json
+python /dtcli/dtcli.py monspec pullcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 180 > monspecpullcompare.json
 jq '.' monspecpullcompare.json
 totalViolations="$(jq -r '.totalViolations' monspecpullcompare.json)"
 if [ $totalViolations -gt 0 ]; then
