@@ -135,18 +135,20 @@
             },
             {
                 "smartscape" : "toRelationships:calls",
-                "upperlimit" : "2",
+                "upperlimit" : "1",
                 "aggregate" : "count",
                 "validate" : "lower"
             },
             {
                 "smartscape" : "fromRelationships:runsOn",
                 "aggregate" : "count",
+                "lowerlimit": "1",
                 "validate" : "lower"
             },
             {
                 "smartscape" : "fromRelationships:calls",
                 "aggregate" : "count",
+                "lowerlimit": "1",
                 "validate" : "lower"
             }
         ],
