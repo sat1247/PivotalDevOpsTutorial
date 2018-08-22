@@ -12,7 +12,7 @@ var port = process.env.PORT || 80,
 // Here are some global config entries that change the behavior of the app
 // ======================================================================
 var buildNumber = 1;
-var minSleep = 500;
+var minSleep = 300;
 var requestCount = 0;
 var inProduction = false;
 var invokeRequestCount = 0;
