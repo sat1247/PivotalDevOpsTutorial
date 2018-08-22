@@ -12,7 +12,7 @@ var port = process.env.PORT || 80,
 // Here are some global config entries that change the behavior of the app
 // ======================================================================
 var buildNumber = 1;
-var minSleep = 300;
+var minSleep = 1;
 var requestCount = 0;
 var inProduction = false;
 var invokeRequestCount = 0;
@@ -25,9 +25,9 @@ var init = function(newBuildNumber) {
 	// CHECK IF WE ARE RUNNING "In Production"
 	inProduction = process.env.DEPLOYMENT_GRP_NAME && process.env.DEPLOYMENT_GRP_NAME.startsWith("Production");
 	
-	if(inProduction) {
-		minSleep = 300; // we just simulate that production is a bit faster than staging, e.g: better hardware!
-	}
+	// if(inProduction) {
+	// 	minSleep = 300; // we just simulate that production is a bit faster than staging, e.g: better hardware!
+	// }
 
 	// here are some "problems" we simulate for different builds. Builds are identified via Env Variable BUILD_NUMBER;
 	// Build # | Problem
