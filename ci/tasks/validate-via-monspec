@@ -12,10 +12,7 @@ export CURRENT_APP_COLOR=$(cat ./current-app-info/current-app.txt)
 eval monspeccomparison=$monspeccomparison
 
 echo "Validating load test results via monspec comparison $monspeccomparison"
-echo "Current seconds since epoch is $(date -u +%s)"
-
-# disabling pushcompare as it doesn't create problems anyways
-#python /dtcli/dtcli.py monspec pushcompare ./PivotalDevOpsTutorial/ci/smplmonspec.json ./PivotalDevOpsTutorial/ci/smplpipelineinfo.json $monspeccomparison 60 > monspecpullcompare.json
+#echo "Current seconds since epoch is $(date -u +%s)"
 
 # fetching monspec comparison results, pretty-printing them, then failing if totalViolations > 0 via POSIX compliant logic for portability
 
