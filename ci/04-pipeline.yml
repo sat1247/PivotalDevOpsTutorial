@@ -48,10 +48,10 @@ resources:
     skip_cert_check: true
     space: {{pcf-prod-space}}
     current_app_name: {{pcf-prod-app-suffix}}
-    - name: ufo
-      type: dynatrace-ufo-resource
-      source:
-        UFO_IP: {{ufo-ip}}
+- name: ufo
+  type: dynatrace-ufo-resource
+  source:
+    UFO_IP: {{ufo-ip}}
 - name: dynatrace
   type: dynatrace-resource
   source:

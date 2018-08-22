@@ -3,10 +3,8 @@ groups:
   jobs:
   - deploy-app
   - load-tests
-  - validate-stage-load-test
   - push-to-prod
   - load-tests-prod
-  - validate-prod-load-test
   - promote-new-version
 - name: init
   jobs:
