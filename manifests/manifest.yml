@@ -10,4 +10,5 @@ applications:
     DT_CUSTOM_PROP: DEPLOYMENT_GRP_NAME=Production DEPLOYMENT_COLOR=APPCOLOR
     BUILD_NUMBER: 1
     DEPLOYMENT_GRP_NAME: Production
+    DUMMY_VAR: changethis
 
