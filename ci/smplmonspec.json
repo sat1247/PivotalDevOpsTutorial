@@ -127,7 +127,8 @@
             },
             { 
                 "timeseries" : "com.dynatrace.builtin:service.failurerate",
-                "aggregate" : "avg"
+                "aggregate" : "avg",
+                "upperlimit" : 5
             },
             { 
                 "timeseries" : "com.dynatrace.builtin:service.requestspermin",
