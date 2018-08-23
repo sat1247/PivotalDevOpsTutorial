@@ -1,7 +1,7 @@
 {
     "displayName" : "SampleDevOpsPipeline",
     "favicon" : "https://www.cloudfoundry.org/wp-content/uploads/2017/10/icon-concourse@2x.png",
-    "configUrl" : "http://192.168.1.42:8081/teams/main/pipelines/PivotalDevOpsTutorial",
+    "configUrl" : "https://bbl-env-ba-66f9ba8-concourse-lb-07041d6baa0ed7d4.elb.us-west-2.amazonaws.com/teams/main/pipelines/PivotalDevOpsTutorial",
     "tags" : ["PivotalDevOpsTutorial", "Concourse"],
     "properties" : {"Pipeline" : "PivotalDevOpsTutorial"}
 }
