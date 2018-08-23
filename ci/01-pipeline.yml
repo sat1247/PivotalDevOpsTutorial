@@ -11,7 +11,7 @@ resources:
   type: git
   source:
     branch: master
-    uri: https://github.com/akirasoft/PivotalDevOpsTutorial.git
+    uri: {{gitrepo}}
 - name: PCF-Stage
   type: cf
   source:
