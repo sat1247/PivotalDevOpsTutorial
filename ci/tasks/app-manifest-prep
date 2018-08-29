@@ -9,7 +9,7 @@ sed "s/DTGRP/Production/" ./app-manifest-output/manifest-tmp2.yml > ./app-manife
 else
 sed "s/APPNAME/$PCF_APP_SUFFIX/" ./PivotalDevOpsTutorial/manifests/manifest.yml > ./app-manifest-output/manifest-tmp.yml
 sed "s/DTGRP/Stage/" ./app-manifest-output/manifest-tmp.yml > ./app-manifest-output/manifest-tmp2.yml
-sed "s/DEPLOYMENT_COLOR=APPCOLOR//" ./app-manifest-output/manifest-tmp2.yml ./app-manifest-output/manifest.yml
+sed "s/DEPLOYMENT_COLOR=APPCOLOR//" ./app-manifest-output/manifest-tmp2.yml > ./app-manifest-output/manifest.yml
 fi
 
 cat ./app-manifest-output/manifest.yml
