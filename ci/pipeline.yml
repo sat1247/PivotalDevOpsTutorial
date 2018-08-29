@@ -78,6 +78,10 @@ jobs:
       PCF_USER: {{stage-deploy-username}}
       PCF_PWD: {{stage-deploy-password}}
       PCF_SPACE: {{pcf-stage-space}}
+  - task: prepare-app-manifest
+    file: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}        
   - put: dynatrace
     params:
       monspecserviceenvironment: SampleJSonService/Staging
@@ -85,7 +89,7 @@ jobs:
       deployversion: v1.5
   - put: PCF-Stage
     params:
-      manifest: PivotalDevOpsTutorial/app/manifest.yml
+      manifest: app-manifest-output/manifest.yml
       path: PivotalDevOpsTutorial/app
 
 - name: load-tests
@@ -162,7 +166,8 @@ jobs:
   - task: prepare-app-manifest
     file: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep.yml
     params:
-      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}      
+      PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}
+      PRODUCTION: true      
   - put: dynatrace
     params:
       monspecserviceenvironment: SampleJSonService/Production
