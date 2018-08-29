@@ -7,8 +7,8 @@ applications:
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
   env:
     DT_NODE_ID: APPNAME
-    DT_CUSTOM_PROP: DEPLOYMENT_GRP_NAME=Production DEPLOYMENT_COLOR=APPCOLOR
+    DT_CUSTOM_PROP: DEPLOYMENT_GRP_NAME=DTGRP DEPLOYMENT_COLOR=APPCOLOR
     BUILD_NUMBER: 2
-    DEPLOYMENT_GRP_NAME: Production
+    DEPLOYMENT_GRP_NAME: DTGRP
     DUMMY_VAR: changethisagain2
 
