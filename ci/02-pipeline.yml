@@ -72,6 +72,10 @@ jobs:
       PCF_USER: {{stage-deploy-username}}
       PCF_PWD: {{stage-deploy-password}}
       PCF_SPACE: {{pcf-stage-space}}
+  - task: prepare-app-manifest
+    file: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep.yml
+    params:
+      PCF_APP_SUFFIX: {{pcf-stage-app-suffix}} 
   - put: dynatrace
     params:
       monspecserviceenvironment: SampleJSonService/Staging
