@@ -11,7 +11,7 @@
                     {
                         "context": "CONTEXTLESS",
                         "key": "DeploymentGroup", 
-                        "value": "Staging"
+                        "value": "Stage"
                     }                
                 ]
             },
