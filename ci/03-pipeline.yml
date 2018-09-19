@@ -44,11 +44,11 @@ resources:
     skip_cert_check: true
     space: {{pcf-prod-space}}
     current_app_name: {{pcf-prod-app-suffix}}
-- name: dynatrace
-  type: dynatrace-resource
-  source:
-    apitoken: {{apitoken}}
-    tenanthost: {{tenanthost}}
+#- name: dynatrace
+# type: dynatrace-resource
+#  source:
+#   apitoken: {{apitoken}}
+#   tenanthost: {{tenanthost}}
     
 jobs:
 - name: init-dynatrace
@@ -78,12 +78,12 @@ jobs:
     file: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep.yml
     params:
       PCF_APP_SUFFIX: {{pcf-stage-app-suffix}}        
-  - put: dynatrace
-    params:
-      monspecserviceenvironment: SampleJSonService/Staging
-      pipelinetaskname: ConcourseDeploy
-      deployversion: v1.5
-      APP_REPO: PivotalDevOpsTutorial
+# - put: dynatrace
+#  params:
+#     monspecserviceenvironment: SampleJSonService/Staging
+#      pipelinetaskname: ConcourseDeploy
+#     deployversion: v1.5
+#     APP_REPO: PivotalDevOpsTutorial
   - put: PCF-Stage
     params:
       manifest: app-manifest-output/manifest.yml
@@ -164,12 +164,12 @@ jobs:
     file: PivotalDevOpsTutorial/ci/tasks/app-manifest-prep.yml
     params:
       PCF_APP_SUFFIX: {{pcf-prod-app-suffix}}      
-  - put: dynatrace
-    params:
-      monspecserviceenvironment: SampleJSonService/Production
-      pipelinetaskname: ConcourseDeploy
-      deployversion: v1.5  
-      APP_REPO: PivotalDevOpsTutorial    
+#  - put: dynatrace
+#    params:
+#     monspecserviceenvironment: SampleJSonService/Production
+#     pipelinetaskname: ConcourseDeploy
+#     deployversion: v1.5  
+#     APP_REPO: PivotalDevOpsTutorial    
   - put: PCF-Prod
     params:
       manifest: app-manifest-output/manifest.yml
@@ -254,5 +254,4 @@ jobs:
       PCF_ORG: {{pcf-prod-organization}}
       PCF_USER: {{prod-deploy-username}}
       PCF_PWD: {{prod-deploy-password}}
-      PCF_SPACE: {{pcf-prod-space}}      
-                 
+      PCF_SPACE: {{pcf-prod-space}} 
